@@ -103,8 +103,7 @@
     </style>
 </head>
 <body>
-    <audio src="music.mp3" autoplay loop>
-    </audio>
+    <audio id="startupMusic" src="music.mp3" loop preload="auto"></audio>
     <div id="info">
         Kliknij, aby rozpocząć<br>
         W, A, S, D - Poruszanie się | Mysz - Rozglądanie się | Spacja - Skok | ESC - Zwolnij kursor
@@ -154,7 +153,6 @@
 
         // Referencje do elementów wyświetlających czas boostów
         let freezeTimerDisplay, blackScreenTimerDisplay;
-
 
         let totalBoostsSpawned = 0;
         let boostsCollectedCount = 0;
@@ -336,6 +334,11 @@
         }
 
         function onKeyDown(event) {
+			const audio = document.getElementById('startupMusic');
+			audio.volume = 0.1; // Set initial volume (0.0 to 1.0)
+
+			// Attempt to play the audio
+			const playPromise = audio.play();
             if (playerFrozen) return;
             switch (event.code) {
                 case 'KeyS': moveForward = true; break; case 'KeyD': moveLeft = true; break;
